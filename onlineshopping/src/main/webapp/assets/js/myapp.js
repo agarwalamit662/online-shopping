@@ -29,15 +29,12 @@ $(function() {
 	if ($table.length) {
 
 		var jsonUrl = '';
-		console.log("Here contextRoot " + window.contextRoot);
 		if (window.categoryId == '') {
 			jsonUrl = window.contextRoot + '/json/data/all/products';
 		} else {
 			jsonUrl = window.contextRoot + '/json/data/category/'
 					+ window.categoryId + '/products';
 		}
-
-		console.log("Here jsonUrl " + jsonUrl);
 
 		$table
 				.DataTable({
