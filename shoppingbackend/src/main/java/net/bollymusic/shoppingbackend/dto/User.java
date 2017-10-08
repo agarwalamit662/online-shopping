@@ -1,5 +1,7 @@
 package net.bollymusic.shoppingbackend.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import javassist.SerialVersionUID;
 
 @Entity
 @Table(name="user_detail")
-public class User {
+public class User implements Serializable{
+	
+	private static final long serialVersionUID= 1L;
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -25,20 +34,36 @@ public class User {
 	}
 
 	@Column(name="first_name")
+	@NotBlank(message="Please enter First Name!")
 	private  String firstName;
 	
 	@Column(name="last_name")
+	@NotBlank(message="Please enter Last Name!")
 	private String lastName;
 	
+	@NotBlank(message="Please enter email Address!")
 	private String email;
 	
 	@Column(name="contact_number")
+	@NotBlank(message="Please enter contact number!")
 	private String contactNumber;
 	
 	private String role;
 	
+	@NotBlank(message="Please enter password!")
 	private String password;
 	
+	@Transient
+	private String confirmPassword;
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	private  boolean enabled = true;
 
 	@OneToOne(mappedBy="user",cascade=CascadeType.ALL)
